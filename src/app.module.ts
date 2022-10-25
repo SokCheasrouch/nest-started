@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ChatModule } from './chat/chat.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   controllers: [AppController],
@@ -11,7 +12,8 @@ import { MongooseModule } from '@nestjs/mongoose';
   imports: [
     UserModule, 
     ChatModule,
-    MongooseModule.forRoot('mongodb+srv://shopping:cheasrouch123@shopping.xuzzg.mongodb.net/?retryWrites=true&w=majority')
+    MongooseModule.forRoot('mongodb+srv://shopping:cheasrouch123@shopping.xuzzg.mongodb.net/?retryWrites=true&w=majority'),
+    CategoryModule
   ],
 })
 export class AppModule {}
