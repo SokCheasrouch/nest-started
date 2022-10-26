@@ -1,15 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { prop } from '@typegoose/typegoose';
 import { Document } from 'mongoose';
 
-export type CatDocument = User & Document;
+export type UserDocument = User & Document;
+@Schema()
 export class User {
-    @prop({required: [true, "User name is required"]})
+    @Prop()
     userName:string;
 
-    @prop({required: [true, "Phone is required"]})
+    @Prop()
     phone:string;
 }
 
-export const ChatSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User);
 
