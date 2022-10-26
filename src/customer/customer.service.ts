@@ -4,6 +4,8 @@ import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { Customer, CustomerDocument, CustomerSchema } from './entities/customer.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+const csv = require('fast-csv');
+const fs = require("fs");
 
 @Injectable()
 export class CustomerService {
@@ -21,6 +23,44 @@ export class CustomerService {
 
   count(options) {
     return this.customerModel.count(options).exec();
+  }
+
+
+  async downloadCsv() {
+    const csvStream = csv.format({ headers: true });
+    const writeStream = fs.createWriteStream('./download.csv');
+    csvStream.pipe(writeStream).on('end',() => {
+      console.log("DONE");
+    }).on('error',err => console.error(err));
+
+    let done = false;
+    let i = 0, j = 0;
+    const limit = 20000;
+    while (!done) {
+      const ski = limit * i;
+      const customer = await this.customerModel.find({}, {}, { skip: ski, limit: limit });
+      if (customer.length == 0) {
+        done = true;
+      } else {
+        i++;
+        console.log("==>> i ===>> ", i)
+        console.log(customer.length);
+        customer.forEach((c) => {
+          let o: any = {};
+          o.id = c._id.toString();
+          o.name = c.name;
+          o.gener = c.gender;
+          j++;
+          csvStream.write(o);
+        }
+        )
+      }
+    }
+
+    console.log('done', j)
+    csvStream.end();
+    writeStream.end();
+
   }
 
   findOne(id: number) {
