@@ -24,7 +24,7 @@ export class CategoryService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} category`;
+    return this.categoryModel.find({_id: "63564e1bcac82824fe882344"}).exec();
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
