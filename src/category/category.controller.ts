@@ -18,22 +18,16 @@ export class CategoryController {
 
     let options = {};
 
-        if (req.query.s) {
+        if (req.query.keyword) {
             options = {
                 $or: [
-                    {title: new RegExp(req.query.s.toString(), 'i')},
-                    {description: new RegExp(req.query.s.toString(), 'i')},
+                    {category: new RegExp(req.query.keyword.toString(), 'i')},
+                    // {description: new RegExp(req.query.s.toString(), 'i')},
                 ]
             }
         }
 
-        const query = this.categoryService.findAll(options);
-
-        // if (req.query.sort) {
-        //     query.sort({
-        //         price: req.query.sort
-        //     })
-        // }
+        const query = this.categoryService.findAll(options).sort({category: 1})
 
         const page: number = parseInt(req.query.page as any) || 1;
         const limit = 10;
@@ -47,8 +41,6 @@ export class CategoryController {
           page,
           last_page: Math.ceil(total / limit)
       };
-
-    // return this.categoryService.findAll();
   }
 
   @Get(':id')
