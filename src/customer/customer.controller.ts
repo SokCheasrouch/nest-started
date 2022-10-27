@@ -96,7 +96,7 @@ export class CustomerController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    this.customerService.downloadCsv();
+    // this.customerService.downloadCsv();
     return this.customerService.findOne(+id);
   }
 

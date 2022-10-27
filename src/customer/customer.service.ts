@@ -64,6 +64,25 @@ export class CustomerService {
   }
 
   findOne(id: number) {
+
+    return this.customerModel.aggregate([
+      // First Stage
+      // {
+      //   $match : { "created": { $gte: new Date("2022-08-01"), $lt: new Date("2022-12-30") } }
+      // },
+      // Second Stage
+      {
+        $group : {
+           _id : {gender: "$gender"},
+           count: { $sum: 1 }
+        }
+      },
+      // Third Stage
+      {
+        $sort : { _id: 1 }
+      }
+     ])
+
     return `This action returns a #${id} customer`;
   }
 

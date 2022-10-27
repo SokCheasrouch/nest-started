@@ -23,3 +23,8 @@ import { TransactionModule } from './transaction/transaction.module';
   ],
 })
 export class AppModule {}
+
+// customers pagination , search, group male | female
+// download csv
+// join product and category
+// report transaction
