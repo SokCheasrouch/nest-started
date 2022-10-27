@@ -21,6 +21,7 @@ export class ProductService {
 
   findAll() {
     return this.productModel.find().populate("category", "_id category");
+    // return this.productModel.aggregate().lookup({ from: 'categories', localField: 'category', foreignField: '_id', as: 'category_col' })
   }
 
   findOne(id: number) {

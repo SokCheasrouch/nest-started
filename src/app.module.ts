@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CategoryModule } from './category/category.module';
 import { CustomerModule } from './customer/customer.module';
 import { ProductModule } from './product/product.module';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   controllers: [AppController],
@@ -17,7 +18,8 @@ import { ProductModule } from './product/product.module';
     MongooseModule.forRoot('mongodb+srv://shopping:cheasrouch123@shopping.xuzzg.mongodb.net/?retryWrites=true&w=majority'),
     CategoryModule,
     CustomerModule,
-    ProductModule
+    ProductModule,
+    TransactionModule
   ],
 })
 export class AppModule {}
